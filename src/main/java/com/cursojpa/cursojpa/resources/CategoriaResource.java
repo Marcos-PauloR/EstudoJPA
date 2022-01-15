@@ -1,8 +1,5 @@
 package com.cursojpa.cursojpa.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cursojpa.cursojpa.domain.Categoria;
 import com.cursojpa.cursojpa.service.CategoriaService;
 
