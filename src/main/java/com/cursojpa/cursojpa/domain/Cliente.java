@@ -18,8 +18,8 @@ import com.cursojpa.cursojpa.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Cliente implements Serializable{
-    private static final long serialVersionUID= 1L;
+public class Cliente implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_CLIENTE")
@@ -30,17 +30,27 @@ public class Cliente implements Serializable{
     private Integer tipo;
 
     @JsonManagedReference
-    @OneToMany(mappedBy="cliente")
-    private List<Endereco> enderecos = new ArrayList<>(); 
-    
+    @OneToMany(mappedBy = "cliente")
+    private List<Endereco> enderecos = new ArrayList<>();
+
     @ElementCollection
     @CollectionTable(name = "telefone")
     private Set<String> telefones = new HashSet<>();
 
-    public Cliente(){
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    public Cliente() {
 
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
 
     public List<Endereco> getEnderecos() {
         return enderecos;
@@ -131,5 +141,4 @@ public class Cliente implements Serializable{
         return true;
     }
 
-    
 }
