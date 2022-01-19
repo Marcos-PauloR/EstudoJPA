@@ -1,5 +1,6 @@
 package com.cursojpa.cursojpa.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.cursojpa.cursojpa.domain.Categoria;
@@ -41,6 +42,10 @@ public class CategoriaService {
             throw new DataIntegrityException("Não é possivel excluir Categoria que possui Produtos");
         }
         
+    }
+
+    public List<Categoria> findAll(){
+        return repository.findAll();
     }
 
 }
