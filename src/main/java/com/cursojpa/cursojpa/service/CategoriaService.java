@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cursojpa.cursojpa.domain.Categoria;
+import com.cursojpa.cursojpa.dto.CategoriaDTO;
 import com.cursojpa.cursojpa.repository.CategoriaRepository;
 import com.cursojpa.cursojpa.service.exceptions.DataIntegrityException;
 import com.cursojpa.cursojpa.service.exceptions.ObjectNotFoundException;
@@ -55,4 +56,9 @@ public class CategoriaService {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return repository.findAll(pageRequest);
     }
+
+    public Categoria fromDTO(CategoriaDTO objDTO){
+        return new Categoria(objDTO.getId(), objDTO.getNome());
+    }
+
 }
