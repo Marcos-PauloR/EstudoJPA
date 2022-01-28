@@ -2,20 +2,43 @@ package com.cursojpa.cursojpa.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import com.cursojpa.cursojpa.service.validation.ClienteInsert;
+
+import org.hibernate.validator.constraints.Length;
+
+@ClienteInsert
 public class ClienteNewDTIO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty(message = "Campo Obrigatorio.")
+    @Length(min = 3, max = 250, message = "Tamanho minimo de: 3 e menor que 250.")
     private String nome;
+
+
+    @NotEmpty(message = "Campo Obrigatorio.")
+    @Email(message = "Email Invalido.")
     private String email;
+    
+    @NotEmpty(message = "Campo Obrigatorio.")
     private String cpfOuCnpj;
     private Integer tipo;
 
+    @NotEmpty(message = "Campo Obrigatorio.")
     private String logadouro;
+
+    @NotEmpty(message = "Campo Obrigatorio.")
     private String numero;
+    
     private String complemento;
     private String bairro;
+    
+    @NotEmpty(message = "Campo Obrigatorio.")
     private String cep;
 
+    @NotEmpty(message = "Campo Obrigatorio.")
     private String telefone1;
     private String telefone2;
     private String telefone3;
