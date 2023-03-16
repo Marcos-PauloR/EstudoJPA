@@ -6,9 +6,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import com.cursojpa.cursojpa.domain.Cliente;
+import com.cursojpa.cursojpa.service.validation.ClienteUpdate;
 
 import org.hibernate.validator.constraints.Length;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable{
     private static final long serialVersionUID = 1L;
 
