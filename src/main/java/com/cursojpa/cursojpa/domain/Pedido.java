@@ -27,7 +27,7 @@ public class Pedido implements Serializable{
     private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    private Date intante;
+    private Date instante;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
@@ -46,9 +46,9 @@ public class Pedido implements Serializable{
     public Pedido(){
     }
 
-    public Pedido(Integer id, Date intante, Cliente cliente, Endereco enderecoDeEntrega) {
+    public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
         this.id = id;
-        this.intante = intante;
+        this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
@@ -77,12 +77,12 @@ public class Pedido implements Serializable{
         this.id = id;
     }
 
-    public Date getIntante() {
-        return intante;
+    public Date getInstante() {
+        return instante;
     }
 
-    public void setIntante(Date intante) {
-        this.intante = intante;
+    public void setInstante(Date intante) {
+        this.instante = intante;
     }
 
     public Pagamento getPagamento() {

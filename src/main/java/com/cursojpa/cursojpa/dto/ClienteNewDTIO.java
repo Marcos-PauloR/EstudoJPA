@@ -27,7 +27,7 @@ public class ClienteNewDTIO implements Serializable {
     private Integer tipo;
 
     @NotEmpty(message = "Campo Obrigatorio.")
-    private String logadouro;
+    private String logradouro;
 
     @NotEmpty(message = "Campo Obrigatorio.")
     private String numero;
@@ -81,12 +81,12 @@ public class ClienteNewDTIO implements Serializable {
         this.tipo = tipo;
     }
 
-    public String getLogadouro() {
-        return logadouro;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setLogadouro(String logadouro) {
-        this.logadouro = logadouro;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getNumero() {
