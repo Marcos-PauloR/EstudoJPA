@@ -10,7 +10,7 @@ public class URL {
 
     public static List<Integer> decodeIntList(String s){
         String[] vet = s.split(",");
-        List<Integer> list = new ArrayList();
+        List<Integer> list = new ArrayList<>();
         for(String num: vet){
             list.add(Integer.parseInt(num));
         }        

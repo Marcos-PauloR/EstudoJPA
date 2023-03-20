@@ -1,12 +1,5 @@
 package com.cursojpa.cursojpa.resources;
 
-import com.cursojpa.cursojpa.domain.Pedido;
-import com.cursojpa.cursojpa.domain.Produto;
-import com.cursojpa.cursojpa.dto.ProdutoDTO;
-import com.cursojpa.cursojpa.resources.utils.URL;
-import com.cursojpa.cursojpa.service.PedidoService;
-import com.cursojpa.cursojpa.service.ProdutoService;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.cursojpa.cursojpa.domain.Produto;
+import com.cursojpa.cursojpa.dto.ProdutoDTO;
+import com.cursojpa.cursojpa.resources.utils.URL;
+import com.cursojpa.cursojpa.service.ProdutoService;
 
 
 @RestController
