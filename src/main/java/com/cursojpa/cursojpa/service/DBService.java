@@ -114,7 +114,7 @@ public void instanciateDatabase() throws ParseException{
     cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
 
 
-    Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "12345678900", TipoCliente.PESSOAFISICA);
+    Cliente cli1 = new Cliente(null, "Maria Silva", "daegon320@gmail.com", "12345678900", TipoCliente.PESSOAFISICA);
     cli1.getTelefones().addAll(Arrays.asList("912345678", "987654321"));
 
     Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 341", "Jardim","74000000", cli1, cid1); 
