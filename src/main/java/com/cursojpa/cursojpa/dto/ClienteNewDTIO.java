@@ -5,9 +5,9 @@ import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import com.cursojpa.cursojpa.service.validation.ClienteInsert;
-
 import org.hibernate.validator.constraints.Length;
+
+import com.cursojpa.cursojpa.service.validation.ClienteInsert;
 
 @ClienteInsert
 public class ClienteNewDTIO implements Serializable {
@@ -25,6 +25,10 @@ public class ClienteNewDTIO implements Serializable {
     @NotEmpty(message = "Campo Obrigatorio.")
     private String cpfOuCnpj;
     private Integer tipo;
+
+
+    @NotEmpty(message = "Campo Obrigatorio.")
+    private String senha;
 
     @NotEmpty(message = "Campo Obrigatorio.")
     private String logradouro;
@@ -124,6 +128,14 @@ public class ClienteNewDTIO implements Serializable {
     public String getTelefone1() {
         return telefone1;
     }
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
 
     public void setTelefone1(String telefone1) {
         this.telefone1 = telefone1;

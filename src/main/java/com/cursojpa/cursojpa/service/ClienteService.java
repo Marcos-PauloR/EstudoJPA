@@ -3,24 +3,28 @@ package com.cursojpa.cursojpa.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.cursojpa.cursojpa.domain.Cidade;
-import com.cursojpa.cursojpa.domain.Cliente;
-import com.cursojpa.cursojpa.domain.Endereco;
-import com.cursojpa.cursojpa.domain.enums.TipoCliente;
-import com.cursojpa.cursojpa.dto.ClienteDTO;
-import com.cursojpa.cursojpa.dto.ClienteNewDTIO;
-import com.cursojpa.cursojpa.repository.ClienteRepository;
-import com.cursojpa.cursojpa.repository.EnderecoRepository;
-import com.cursojpa.cursojpa.service.exceptions.DataIntegrityException;
-import com.cursojpa.cursojpa.service.exceptions.ObjectNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.cursojpa.cursojpa.domain.Cidade;
+import com.cursojpa.cursojpa.domain.Cliente;
+import com.cursojpa.cursojpa.domain.Endereco;
+import com.cursojpa.cursojpa.domain.enums.Perfil;
+import com.cursojpa.cursojpa.domain.enums.TipoCliente;
+import com.cursojpa.cursojpa.dto.ClienteDTO;
+import com.cursojpa.cursojpa.dto.ClienteNewDTIO;
+import com.cursojpa.cursojpa.repository.ClienteRepository;
+import com.cursojpa.cursojpa.repository.EnderecoRepository;
+import com.cursojpa.cursojpa.security.UserSS;
+import com.cursojpa.cursojpa.service.exceptions.AuthorizationException;
+import com.cursojpa.cursojpa.service.exceptions.DataIntegrityException;
+import com.cursojpa.cursojpa.service.exceptions.ObjectNotFoundException;
 
 
 @Service
@@ -32,7 +36,15 @@ public class ClienteService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder pe;
+
     public Cliente find(Integer id) {
+        UserSS user = UserService.authenticated();
+        if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+            throw new AuthorizationException("Acesso negado");
+        }
+
         Optional<Cliente> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
@@ -72,11 +84,11 @@ public class ClienteService {
     }
 
     public Cliente fromDTO(ClienteDTO objDTO) {
-        return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null);
+        return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null, null);
     }
 
     public Cliente fromDTO(ClienteNewDTIO objDTO){
-        Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(),objDTO.getCpfOuCnpj() , TipoCliente.toEnum(objDTO.getTipo()));
+        Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(),objDTO.getCpfOuCnpj() , TipoCliente.toEnum(objDTO.getTipo()), pe.encode(objDTO.getSenha()) );
         Cidade cid = new Cidade(objDTO.getCidadeId(), null, null);
         Endereco end = new Endereco(null , objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(), objDTO.getBairro(), objDTO.getCep(), cli, cid);
         cli.getEnderecos().add(end);

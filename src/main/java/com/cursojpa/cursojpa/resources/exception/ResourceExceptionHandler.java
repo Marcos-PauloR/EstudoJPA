@@ -2,15 +2,16 @@ package com.cursojpa.cursojpa.resources.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.cursojpa.cursojpa.service.exceptions.DataIntegrityException;
-import com.cursojpa.cursojpa.service.exceptions.ObjectNotFoundException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.cursojpa.cursojpa.service.exceptions.AuthorizationException;
+import com.cursojpa.cursojpa.service.exceptions.DataIntegrityException;
+import com.cursojpa.cursojpa.service.exceptions.ObjectNotFoundException;
 
 
 @ControllerAdvice
@@ -37,6 +38,12 @@ public class ResourceExceptionHandler{
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err); 
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request){
+        StandardError err = new StandardError(HttpStatus.FORBIDDEN.value() , e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err); 
     }
 
 }
