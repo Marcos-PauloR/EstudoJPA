@@ -46,7 +46,8 @@ public class Security extends WebSecurityConfigurerAdapter {
         "/categoria/**"
     };
     private static final String[] PUBLIC_MATCHERS_POST ={
-        "/cliente/**",
+        "/cliente",
+        "/cliente/picture",
         "/auth/forgot/**"
     };
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cursojpa.cursojpa.domain.Cliente;
@@ -40,7 +41,6 @@ public class ClienteResource{
         return ResponseEntity.ok().body(obj);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTIO objDto){
         Cliente obj = service.fromDTO(objDto);
@@ -87,5 +87,12 @@ public class ClienteResource{
         return ResponseEntity.ok().body(listDTO);
     }
 
+
+    @PostMapping(value = "/picture")
+    public ResponseEntity<Void> uploadProflePicture(@RequestParam(name = "file") MultipartFile file){
+        URI uri = service.uploadProfilePicture(file);
+        return ResponseEntity.created(uri).build();
+    }
+   
 
 }
